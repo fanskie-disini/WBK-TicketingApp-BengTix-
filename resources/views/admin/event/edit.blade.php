@@ -83,7 +83,7 @@
                         <div class="avatar max-w-sm">
                             <div class="w-full rounded-lg">
                                 @if ($event->gambar)
-                                <img id="previewImg" src="{{ asset('images/events/' . $event->gambar) }}" alt="Preview">
+                                <img id="previewImg" src="{{ asset($event->gambar) }}" alt="Preview">
                                 @else
                                 <img id="previewImg" src="" alt="Preview">
                                 @endif
@@ -143,11 +143,11 @@
         <form method="POST" class="modal-box">
             @csrf
             @method('PUT')
-    
+
             <input type="hidden" name="ticket_id" id="edit_ticket_id">
-    
+
             <h3 class="text-lg font-bold mb-4">Edit Ticket</h3>
-    
+
             <div class="form-control mb-4">
                 <label class="label">
                     <span class="label-text font-semibold">Tipe Ticket</span>
@@ -184,9 +184,9 @@
         <form method="POST" class="modal-box">
             @csrf
             @method('DELETE')
-    
+
             <input type="hidden" name="ticket_id" id="delete_ticket_id">
-    
+
             <h3 class="text-lg font-bold mb-4">Hapus Ticket</h3>
             <p>Apakah Anda yakin ingin menghapus ticket ini?</p>
             <div class="modal-action">

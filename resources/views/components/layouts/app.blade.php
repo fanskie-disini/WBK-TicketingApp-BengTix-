@@ -1,56 +1,46 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="winter">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ $title ?? 'BengTix - Beli Tiket Auto Asik' }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+
+
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
-    <x-navbar />
-    <main>
-        {{ $slot }}
-    </main>
+<body class="font-sans antialiased">
+    <div class="min-h-screen bg-gray-100">
+        @include('components.user.navigation')
 
-    <x-footer />
+        <!-- Page Heading -->
+        @isset($header)
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                {{ $header }}
+            </div>
+        </header>
+        @endisset
 
-    @if(session('success') || session('error') || session('info'))
-    <div id="flash-toast" class="toast fixed top-4 right-4 z-50" aria-live="polite">
-        @if(session('success'))
-        <div class="alert alert-success shadow-lg">
-            <div><span>{{ session('success') }}</span></div>
-        </div>
-        @endif
+        <!-- Page Content -->
+        <main>
+            {{ $slot }}
+        </main>
 
-        @if(session('error'))
-        <div class="alert alert-error shadow-lg mt-2">
-            <div><span>{{ session('error') }}</span></div>
-        </div>
-        @endif
+        <x-footer />
 
-        @if(session('info'))
-        <div class="alert alert-info shadow-lg mt-2">
-            <div><span>{{ session('info') }}</span></div>
-        </div>
-        @endif
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        const t = document.getElementById('flash-toast');
-        if (!t) return;
-        // hide after 4s
-        setTimeout(() => {
-          t.classList.add('opacity-0', 'transition', 'duration-500');
-          setTimeout(() => t.remove(), 600);
-        }, 4000);
-      });
-    </script>
-    @endif
 </body>
 
 </html>

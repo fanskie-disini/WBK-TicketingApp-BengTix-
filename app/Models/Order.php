@@ -8,13 +8,15 @@ class Order extends Model
 {
     protected $fillable = [
         'user_id',
+        'event_id',
         'total_harga',
+        'order_date',
     ];
 
     protected $casts = [
         'order_date' => 'datetime',
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -34,5 +36,4 @@ class Order extends Model
     {
         return $this->hasMany(DetailOrder::class);
     }
-
 }
