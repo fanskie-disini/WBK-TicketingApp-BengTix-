@@ -52,13 +52,12 @@
                     </div>
 
                     <!-- Lokasi -->
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text font-semibold">Lokasi</span>
-                        </label>
-                        <input type="text" name="lokasi" placeholder="Contoh: Stadion Utama"
-                            class="input input-bordered w-full" required />
-                    </div>
+                    <label class="label">Pilih Lokasi</label>
+                    <select name="lokasi" class="select select-bordered w-full">
+                        @foreach($lokasis as $l)
+                        <option value="{{ $l->nama_lokasi }}">{{ $l->nama_lokasi }}</option>
+                        @endforeach
+                    </select>
 
                     <!-- Kategori -->
                     <div class="form-control">

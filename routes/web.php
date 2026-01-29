@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\LokasiController;
 use App\Http\Controllers\Admin\TiketController;
 use App\Http\Controllers\Admin\HistoriesController;
 use App\Http\Controllers\User\HomeController;
@@ -33,6 +34,9 @@ Route::middleware('auth')->group(function (): void {
 
         // Category Management
         Route::resource('categories', CategoryController::class);
+
+        // Lokasi Management
+        Route::resource('lokasis', LokasiController::class);
 
         // Event Management
         Route::resource('events', AdminEventController::class);

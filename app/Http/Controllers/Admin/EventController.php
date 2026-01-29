@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\Kategori;
+use App\Models\Lokasi;
 
 class EventController extends Controller
 {
@@ -21,7 +22,8 @@ class EventController extends Controller
     public function create()
     {
         $categories = Kategori::all();
-        return view('admin.event.create', compact('categories'));
+        $lokasis = Lokasi::all();
+        return view('admin.event.create', compact('categories', 'lokasis'));
     }
 
     public function store(Request $request)
@@ -62,7 +64,8 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
         $categories = Kategori::all();
-        return view('admin.event.edit', compact('event', 'categories'));
+        $lokasis = Lokasi::all();
+        return view('admin.event.edit', compact('event', 'categories', 'lokasis'));
     }
 
     public function update(Request $request, string $id)

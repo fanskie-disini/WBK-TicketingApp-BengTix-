@@ -41,8 +41,15 @@
                         <label class="label">
                             <span class="label-text font-semibold">Lokasi</span>
                         </label>
-                        <input type="text" name="lokasi" placeholder="Contoh: Stadion Utama"
-                            class="input input-bordered w-full" value="{{ $event->lokasi }}" required />
+                        <select name="lokasi" class="select select-bordered w-full" required>
+                            <option value="" disabled>-- Pilih Lokasi --</option>
+                            @foreach($lokasis as $l)
+                                <option value="{{ $l->nama_lokasi }}" 
+                                    {{ $event->lokasi == $l->nama_lokasi ? 'selected' : '' }}>
+                                    {{ $l->nama_lokasi }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <!-- Kategori -->
@@ -53,10 +60,10 @@
                         <select name="kategori_id" class="select select-bordered w-full" required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ $category->id == $event->kategori_id ? 'selected' :
-                                '' }}>
-                                {{ $category->nama }}
-                            </option>
+                                <option value="{{ $category->id }}"
+                                    {{ $category->id == $event->kategori_id ? 'selected' : '' }}>
+                                    {{ $category->nama }}
+                                </option>
                             @endforeach
 
                         </select>
@@ -83,9 +90,10 @@
                         <div class="avatar max-w-sm">
                             <div class="w-full rounded-lg">
                                 @if ($event->gambar)
-                                <img id="previewImg" src="{{ asset($event->gambar) }}" alt="Preview">
+                                    <img id="previewImg" src="{{ asset('images/events/' . $event->gambar) }}"
+                                        alt="Preview">
                                 @else
-                                <img id="previewImg" src="" alt="Preview">
+                                    <img id="previewImg" src="" alt="Preview">
                                 @endif
                             </div>
                         </div>
@@ -137,62 +145,4 @@
             successAlert.classList.add('hidden');
         });
     </script>
-
-    <!-- Edit Ticket Modal -->
-    <dialog id="edit_ticket_modal" class="modal">
-        <form method="POST" class="modal-box">
-            @csrf
-            @method('PUT')
-
-            <input type="hidden" name="ticket_id" id="edit_ticket_id">
-
-            <h3 class="text-lg font-bold mb-4">Edit Ticket</h3>
-
-            <div class="form-control mb-4">
-                <label class="label">
-                    <span class="label-text font-semibold">Tipe Ticket</span>
-                </label>
-                <select name="tipe" id="edit_tipe" class="select select-bordered w-full" required>
-                    <option value="" disabled selected>Pilih Tipe Ticket</option>
-                    <option value="reguler">Regular</option>
-                    <option value="premium">Premium</option>
-                </select>
-            </div>
-            <div class="form-control mb-4">
-                <label class="label">
-                    <span class="label-text font-semibold">Harga</span>
-                </label>
-                <input type="number" name="harga" id="edit_harga" placeholder="Contoh: 50000"
-                    class="input input-bordered w-full" required />
-            </div>
-            <div class="form-control mb-4">
-                <label class="label">
-                    <span class="label-text font-semibold">Stok</span>
-                </label>
-                <input type="number" name="stok" id="edit_stok" placeholder="Contoh: 100"
-                    class="input input-bordered w-full" required />
-            </div>
-            <div class="modal-action">
-                <button class="btn btn-primary" type="submit">Simpan</button>
-                <button class="btn" onclick="edit_ticket_modal.close()" type="reset">Batal</button>
-            </div>
-        </form>
-    </dialog>
-
-    <!-- Delete Ticket Modal -->
-    <dialog id="delete_modal" class="modal">
-        <form method="POST" class="modal-box">
-            @csrf
-            @method('DELETE')
-
-            <input type="hidden" name="ticket_id" id="delete_ticket_id">
-
-            <h3 class="text-lg font-bold mb-4">Hapus Ticket</h3>
-            <p>Apakah Anda yakin ingin menghapus ticket ini?</p>
-            <div class="modal-action">
-                <button class="btn btn-primary" type="submit">Hapus</button>
-                <button class="btn" onclick="delete_modal.close()" type="reset">Batal</button>
-            </div>
-        </form>
-    </dialog>
 </x-layouts.admin>
